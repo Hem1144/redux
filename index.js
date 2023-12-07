@@ -1,26 +1,64 @@
 import { createStore, applyMiddleware } from "redux";
 import logger from "redux-logger";
+import { thunk } from "redux-thunk";
+import axios from "axios";
 
-//* srore
-const store = createStore(reducer, applyMiddleware(logger.default));
+// Constants
+const init = "init";
+const inc = "increment";
+const dec = "decrement";
+const incByAmount = "incrementByAmount";
 
-const history = [];
+// Store with middleware
+const store = createStore(reducer, applyMiddleware(logger.default, thunk));
 
-//* reducer
+// Reducer function
 function reducer(state = { amount: 1 }, action) {
-  if (action.type === "increment") {
-    //* immutability => new copy of object
-    return { amount: state.amount + 1 };
+  switch (action.type) {
+    case init:
+      return { amount: action.payload };
+    case inc:
+      return { amount: state.amount + 1 };
+    case dec:
+      return { amount: state.amount - 1 };
+    case incByAmount:
+      return { amount: state.amount + action.payload };
+    default:
+      return state;
   }
-  return state;
 }
 
-//! global state
-// store.subscribe(() => {
-//   history.push(store.getState());
-//   console.log(history);
-// });
+// async function getUser() {
+// Return a function that accepts dispatch
+// const { data } = await axios.get("http://localhost:3000/accounts/1");
+// console.log(data, "checking data");
+// dispatch(initUser(data.amount)); // Dispatch the action inside this function
+// }
+// getUser();
 
-setInterval(() => {
-  store.dispatch({ type: "increment" });
-}, 5000);
+//* Action creators (it is synchronous)
+const { data } = await axios.get("http://localhost:3000/accounts/1");
+// async function getUser(dispatch) {
+//   //! can not make async action like this
+//   dispatch(initUser(data.amount));
+// }
+// getUser();
+
+function initUser(value) {
+  return { type: init, payload: value };
+}
+function increment() {
+  return { type: inc };
+}
+
+function decrement() {
+  return { type: dec };
+}
+
+function incrementByAmount(value) {
+  return { type: incByAmount, payload: value };
+}
+
+setTimeout(() => {
+  store.dispatch(initUser(data.amount));
+}, 3000);
