@@ -1,7 +1,10 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import logger from "redux-logger";
 
 //* srore
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(logger.default));
+
+const history = [];
 
 //* reducer
 function reducer(state = { amount: 1 }, action) {
@@ -13,8 +16,11 @@ function reducer(state = { amount: 1 }, action) {
 }
 
 //! global state
-console.log(store.getState());
+// store.subscribe(() => {
+//   history.push(store.getState());
+//   console.log(history);
+// });
 
-store.dispatch({ type: "increment" });
-
-console.log(store.getState());
+setInterval(() => {
+  store.dispatch({ type: "increment" });
+}, 5000);
