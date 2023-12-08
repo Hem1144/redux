@@ -37,12 +37,13 @@ function reducer(state = { amount: 1 }, action) {
 // getUser();
 
 //* Action creators (it is synchronous)
-const { data } = await axios.get("http://localhost:3000/accounts/1");
-// async function getUser(dispatch) {
-//   //! can not make async action like this
-//   dispatch(initUser(data.amount));
-// }
-// getUser();
+function getUser(id) {
+  return async (dispatch, getState) => {
+    //! can not make async action like this
+    const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
+    dispatch(initUser(data.amount));
+  };
+}
 
 function initUser(value) {
   return { type: init, payload: value };
@@ -60,5 +61,5 @@ function incrementByAmount(value) {
 }
 
 setTimeout(() => {
-  store.dispatch(initUser(data.amount));
+  store.dispatch(getUser(2));
 }, 3000);
