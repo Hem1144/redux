@@ -4,10 +4,11 @@ import { thunk } from "redux-thunk";
 import axios from "axios";
 
 // Constants
-const init = "init";
-const inc = "increment";
-const dec = "decrement";
-const incByAmount = "incrementByAmount";
+const init = "account/init";
+const inc = "account/increment";
+const dec = "account/decrement";
+const incByAmount = "account/incrementByAmount";
+const incBonus = "bonus/increment";
 
 // Store with middleware
 const store = createStore(
@@ -36,6 +37,8 @@ function accountReducer(state = { amount: 1 }, action) {
 
 function bonusReducer(state = { points: 0 }, action) {
   switch (action.type) {
+    case incBonus:
+      return { points: state.points + 1 };
     case incByAmount:
       if (action.payload >= 100) return { points: state.points + 1 };
     default:
@@ -52,7 +55,7 @@ function bonusReducer(state = { points: 0 }, action) {
 // getUser();
 
 //* Action creators (it is synchronous)
-function getUser(id) {
+function getUserAccount(id) {
   return async (dispatch, getState) => {
     //! can not make async action like this
     const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
@@ -74,8 +77,12 @@ function decrement() {
 function incrementByAmount(value) {
   return { type: incByAmount, payload: value };
 }
+function incrementBonus(value) {
+  return { type: incBonus };
+}
 
 setTimeout(() => {
-  // store.dispatch(getUser(2));
-  store.dispatch(incrementByAmount(300));
+  store.dispatch(getUserAccount(2));
+  // store.dispatch(incrementByAmount(300));
+  // store.dispatch(incrementBonus());
 }, 3000);
