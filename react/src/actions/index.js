@@ -1,6 +1,6 @@
-import { axios } from "axios";
+import axios from "axios";
 //* actions name Constants
-// const init = "account/init";
+// export const init = "account/init";
 export const inc = "account/increment";
 export const dec = "account/decrement";
 export const incByAmount = "account/incrementByAmount";

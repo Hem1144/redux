@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import logger from "redux-logger";
 import { thunk } from "redux-thunk";
-import axios from "axios";
 
 // Store with middleware
 const store = createStore(

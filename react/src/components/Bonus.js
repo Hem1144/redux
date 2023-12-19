@@ -1,15 +1,16 @@
-import { useState } from "react";
-
-function Bonus({ incrementBonus, bonus }) {
+import { incrementBonus } from "../actions";
+function Bonus() {
   return (
     <div className="card">
       <div className="container">
         <h4>
           <b>Bonus Component</b>
         </h4>
-        <h3>Total Point : ${bonus.points}</h3>
+        <h3>Total Point : ${store.getState().bonus.points}</h3>
 
-        <button onClick={incrementBonus}>Increment +</button>
+        <button onClick={() => store.dispatch(incrementBonus())}>
+          Increment +
+        </button>
       </div>
     </div>
   );
