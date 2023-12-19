@@ -1,15 +1,15 @@
 import { axios } from "axios";
 //* actions name Constants
 // const init = "account/init";
-const inc = "account/increment";
-const dec = "account/decrement";
-const incByAmount = "account/incrementByAmount";
-const getAccUserPending = "account/getUser/pending";
-const getAccUserFulfilled = "account/getUser/fulfilled";
-const getAccUserRejected = "account/getUser/rejected";
-const incBonus = "bonus/increment";
+export const inc = "account/increment";
+export const dec = "account/decrement";
+export const incByAmount = "account/incrementByAmount";
+export const getAccUserPending = "account/getUser/pending";
+export const getAccUserFulfilled = "account/getUser/fulfilled";
+export const getAccUserRejected = "account/getUser/rejected";
+export const incBonus = "bonus/increment";
 
-function getUserAccount(id) {
+export function getUserAccount(id) {
   return async (dispatch, getState) => {
     try {
       dispatch(getAccountUserPending());
@@ -22,26 +22,26 @@ function getUserAccount(id) {
   };
 }
 
-function getAccountUserFulfilled(value) {
+export function getAccountUserFulfilled(value) {
   return { type: getAccUserFulfilled, payload: value };
 }
-function getAccountUserRejected(error) {
+export function getAccountUserRejected(error) {
   return { type: getAccUserRejected, error: error };
 }
-function getAccountUserPending() {
+export function getAccountUserPending() {
   return { type: getAccUserPending };
 }
-function increment() {
+export function increment() {
   return { type: inc };
 }
 
-function decrement() {
+export function decrement() {
   return { type: dec };
 }
 
-function incrementByAmount(value) {
+export function incrementByAmount(value) {
   return { type: incByAmount, payload: value };
 }
-function incrementBonus(value) {
+export function incrementBonus(value) {
   return { type: incBonus };
 }
