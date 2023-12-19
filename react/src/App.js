@@ -1,8 +1,11 @@
 import "./App.css";
+import { useSelector } from "react-redux";
 import Account from "./components/Account";
 import Bonus from "./components/Bonus";
 
 function App({ store }) {
+  const amount = useSelector((state) => state.account.amount);
+  const points = useSelector((state) => state.bonus.points);
   // const [account, setAccount] = useState({ amount: 0 });
   // const [bonus, setBonus] = useState({ points: 0 });
 
@@ -21,8 +24,8 @@ function App({ store }) {
   return (
     <div className="App">
       <h4>App</h4>
-      <h3>Current Amount : {store.getState().account.amount}</h3>
-      <h3>Total Bonus :{store.getState().bonus.points} </h3>
+      <h3>Current Amount : {amount}</h3>
+      <h3>Total Bonus :{points} </h3>
 
       <Account></Account>
 
