@@ -14,7 +14,7 @@ export function getUserAccount(id) {
     try {
       dispatch(getAccountUserPending());
 
-      const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
+      const { data } = await axios.get(`http://localhost:8080/accounts/${id}`);
       dispatch(getAccountUserFulfilled(data.amount));
     } catch (error) {
       dispatch(getAccountUserRejected(error.message));
