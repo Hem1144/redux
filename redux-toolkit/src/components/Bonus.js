@@ -1,20 +1,22 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import{increment} from "../slices/bonusSLice.js"
+
 
 function Bonus() {
-  const [points, setPoints] = useState({ value: 0 });
 
-  const increment = () => {
-    setPoints({ value: points.value + 1 });
-  };
+    const dispatch = useDispatch()
+  const points = useSelector(state => state.bonus.points)
+
+  
   return (
     <div className="card">
       <div className="container">
         <h4>
           <b>Bonus Component</b>
         </h4>
-        <h3>Total Point : ${points.value}</h3>
+        <h3>Total Point : ${points}</h3>
 
-        <button onClick={increment}>Increment +</button>
+        <button onClick={()=>dispatch(increment())}>Increment +</button>
       </div>
     </div>
   );
