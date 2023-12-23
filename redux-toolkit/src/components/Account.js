@@ -25,9 +25,7 @@ function Account() {
         <button onClick={() => dispatch(incrementByAmount(value))}>
           Increment By {value} +
         </button>
-        <button onClick={() => dispatch(incrementByAmount(value))}>
-          Get User
-        </button>
+        <button onClick={() => dispatch(getUserAccount(1))}>Get User</button>
       </div>
     </div>
   );
