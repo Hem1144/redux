@@ -6,12 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import accountReducer from "./slices/accountSlice";
 import bonusReducer from "./slices/bonusSLice";
+import rewardReducer from "./reducers/reward";
 import { Provider } from "react-redux";
 
 const store = configureStore({
   reducer: {
     account: accountReducer,
     bonus: bonusReducer,
+    reward: rewardReducer,
   },
 });
 
