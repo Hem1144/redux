@@ -17,6 +17,8 @@ const store = configureStore({
     reward: rewardReducer,
     [adminApi.reducerPath]: adminApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(adminApi.middleware),
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
