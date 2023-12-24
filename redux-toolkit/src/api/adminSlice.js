@@ -6,10 +6,40 @@ export const adminApi = createApi({
   endpoints: (builder) => ({
     getAccounts: builder.query({
       query: () => `accounts`,
-      providesTags: ["accounts"],
+      transformResponse: (response) =>
+        response.sort((a, b) => a.amount - b.amount),
+      providesTags: ["accounts"], //! this provideTags is for caching
       // invalidatesTags: ["accounts"],
+    }),
+    addAccount: builder.mutation({
+      query: (amount, id) => ({
+        url: "accounts",
+        method: "POST",
+        body: { amount, id },
+      }),
+      invalidatesTags: ["accounts"],
+    }),
+    deleteAccount: builder.mutation({
+      query: (id) => ({
+        url: `accounts/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["accounts"],
+    }),
+    updateAccount: builder.mutation({
+      query: ({ id, amount }) => ({
+        url: `accounts/${id}`,
+        method: "PATCH",
+        body: { amount },
+      }),
+      invalidatesTags: ["accounts"],
     }),
   }),
 });
 
-export const { useGetAccountsQuery } = adminApi;
+export const {
+  useGetAccountsQuery,
+  useAddAccountMutation,
+  useDeleteAccountMutation,
+  useUpdateAccountMutation,
+} = adminApi;
