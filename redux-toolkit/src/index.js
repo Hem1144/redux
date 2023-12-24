@@ -7,6 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import accountReducer from "./slices/accountSlice";
 import bonusReducer from "./slices/bonusSLice";
 import rewardReducer from "./reducers/reward";
+import { adminApi } from "./api/adminSlice";
 import { Provider } from "react-redux";
 
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
     account: accountReducer,
     bonus: bonusReducer,
     reward: rewardReducer,
+    [adminApi.reducerPath]: adminApi.reducer,
   },
 });
 
