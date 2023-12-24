@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useDispatch, useSelector, getUserAccount } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
   decrement,
   incrementByAmount,
+  getUserAccount,
 } from "../slices/accountSlice";
 
 function Account() {

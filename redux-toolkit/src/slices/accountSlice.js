@@ -8,10 +8,11 @@ const initialState = {
 //* create the thunk
 export const getUserAccount = createAsyncThunk(
   "account/getUser",
-  async (userId, thunkAPI) => {
+  async (userId) => {
     const { data } = await axios.get(
       `http://localhost:8080/accounts/${userId}`
     );
+    console.log(data, "checking data");
     return data.amount;
   }
 );
@@ -31,9 +32,17 @@ export const accountSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getUserAccount.fulfilled, (state, action) => {
-      state.amount = action.payload;
-    });
+    builder
+      .addCase(getUserAccount.fulfilled, (state, action) => {
+        state.amount = action.payload;
+        state.pending = false;
+      })
+      .addCase(getUserAccount.pending, (state, action) => {
+        state.pending = true;
+      })
+      .addCase(getUserAccount.rejected, (state, action) => {
+        state.error = action.error;
+      });
   },
 });
 
